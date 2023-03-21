@@ -12,18 +12,21 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  name: "Next.js",
+  name: "PICS Project",
   description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
+    "A tool for cybersecurity professionals to to scan and analyze their network for vulnerabilities and misconfigurations.",
   mainNav: [
     {
       title: "Home",
       href: "/",
     },
+    {
+      title: "FAQ",
+      href: "/faq",
+    },
   ],
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn/ui",
+    github: "https://github.com/genedupre/project_pics",
     docs: "https://ui.shadcn.com",
   },
 }

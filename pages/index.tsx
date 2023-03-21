@@ -4,15 +4,41 @@ import Link from "next/link"
 import { siteConfig } from "@/config/site"
 import { Layout } from "@/components/layout"
 import { buttonVariants } from "@/components/ui/button"
+import { CommandDropdownMenu } from "@/components/ui/test"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function IndexPage() {
   return (
     <Layout>
       <Head>
-        <title>Next.js</title>
+        <title>PICS Project</title>
         <meta
           name="description"
-          content="Next.js template for building apps with Radix UI and Tailwind CSS"
+          content="Scan and analyze your network for vulnerabilities and misconfigurations."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -20,31 +46,55 @@ export default function IndexPage() {
       <section className="container grid items-center gap-6 pt-6 pb-8 md:py-10">
         <div className="flex max-w-[980px] flex-col items-start gap-2">
           <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
-            Beautifully designed components <br className="hidden sm:inline" />
-            built with Radix UI and Tailwind CSS.
+            Scan and analyze your network <br className="hidden sm:inline" />
+            for vulnerabilities and misconfigurations.
           </h1>
           <p className="max-w-[700px] text-lg text-slate-700 dark:text-slate-400 sm:text-xl">
-            Accessible and customizable components that you can copy and paste
-            into your apps. Free. Open Source. And Next.js 13 Ready.
+            Get started by filling out the form below.
           </p>
         </div>
-        <div className="flex gap-4">
-          <Link
-            href={siteConfig.links.docs}
-            target="_blank"
-            rel="noreferrer"
-            className={buttonVariants({ size: "lg" })}
-          >
-            Documentation
-          </Link>
-          <Link
-            target="_blank"
-            rel="noreferrer"
-            href={siteConfig.links.github}
-            className={buttonVariants({ variant: "outline", size: "lg" })}
-          >
-            GitHub
-          </Link>
+        <div className="w-full">
+          <div className="flex w-full max-w-4xl items-center space-x-2">
+            <Input type="url" placeholder="Enter a URL or an IP-address" />
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select a tool" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Websites</SelectLabel>
+                  <SelectItem value="webscan">Web Scanner</SelectItem>
+                  <SelectItem value="certinfo">Certificate Information</SelectItem>
+                </SelectGroup>
+                <SelectSeparator />
+                <SelectGroup>
+                  <SelectLabel>Servers</SelectLabel>
+                  <SelectItem value="portscan">Port Scanner</SelectItem>
+                  <SelectItem value="full_portscan">Full Port scan</SelectItem>
+                  <SelectItem value="custom_portscan" disabled>
+                    Custom Port Scan
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="default">Scan</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure that you want to scan?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    We only reccomend this for educational purposes. If you scan a website or server that you do not own, you may be violating the law.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction type="submit">Start scanning</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
         </div>
       </section>
     </Layout>

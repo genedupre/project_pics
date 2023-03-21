@@ -5,7 +5,6 @@ interface SiteConfig {
   description: string
   mainNav: NavItem[]
   links: {
-    twitter: string
     github: string
     docs: string
   }

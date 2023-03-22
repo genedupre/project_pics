@@ -1,9 +1,6 @@
-import Head from "next/head"
-import Link from "next/link"
 
-import { siteConfig } from "@/config/site"
 import { Layout } from "@/components/layout"
-import { buttonVariants } from "@/components/ui/button"
+import { siteConfig } from "@/config/site"
 import {
   Accordion,
   AccordionContent,
@@ -11,18 +8,29 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 
-export default function IndexPage() {
+
+async function getData() {
+  const res = await fetch('http://localhost:3000/api/hello');
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  // Recommendation: handle errors
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
+}
+
+export const metadata: Metadata = {
+	title: `FAQ - ${siteConfig.name}`,
+};
+
+export default async function IndexPage() {
+  const data = await getData();
   return (
     <Layout>
-      <Head>
-        <title>PICS Project</title>
-        <meta
-          name="description"
-          content="Scan and analyze your network for vulnerabilities and misconfigurations."
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <section className="container grid items-center gap-6 pt-6 pb-8 md:py-10">
         <div className="flex max-w-[980px] flex-col items-start gap-2">
           <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
@@ -30,6 +38,7 @@ export default function IndexPage() {
           </h1>
           <p className="max-w-[700px] text-lg text-slate-700 dark:text-slate-400 sm:text-xl">
             If something is not answered here, please contact us.
+            API Data from: {data.name}
           </p>
         </div>
         <div className="flex gap-4">

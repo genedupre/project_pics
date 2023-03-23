@@ -1,6 +1,7 @@
 
 import { Layout } from "@/components/layout"
 import { siteConfig } from "@/config/site"
+import type { Metadata } from 'next';
 import {
   Accordion,
   AccordionContent,
@@ -8,27 +9,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 
-
-async function getData() {
-  const res = await fetch('http://localhost:3000/api/hello');
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  // Recommendation: handle errors
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
-}
-
 export const metadata: Metadata = {
 	title: `FAQ - ${siteConfig.name}`,
 };
 
 export default async function IndexPage() {
-  const data = await getData();
   return (
     <Layout>
       <section className="container grid items-center gap-6 pt-6 pb-8 md:py-10">
@@ -38,7 +23,6 @@ export default async function IndexPage() {
           </h1>
           <p className="max-w-[700px] text-lg text-slate-700 dark:text-slate-400 sm:text-xl">
             If something is not answered here, please contact us.
-            API Data from: {data.name}
           </p>
         </div>
         <div className="flex gap-4">

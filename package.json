@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "api": "python3 backend-api.py",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

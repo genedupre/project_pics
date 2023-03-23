@@ -26,15 +26,17 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
+// This is the default metadata for all pages. 
 export const metadata: Metadata = {
 	title: `${siteConfig.name}`,
+  desctiption: `${siteConfig.description}`,
 };
 
 export default function IndexPage() {
   return (
     <Layout>
       <section className="container grid items-center gap-6 pt-6 pb-8 md:py-10">
-        <div className="flex max-w-[980px] flex-col items-start gap-2">
+        <div className="flex flex-col items-start gap-2">
           <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
             Scan and analyze your network <br className="hidden sm:inline" />
             for vulnerabilities and misconfigurations.

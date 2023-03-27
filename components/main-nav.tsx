@@ -44,7 +44,7 @@ export function MainNav({ items, path }: MainNavProps) {
           {items?.map(
             (item, index) =>
               item.href && (
-              <NavigationMenuItem className="mr-1">
+              <NavigationMenuItem className="mr-1" key={index}>
                 <Link href={item.href} legacyBehavior passHref>
                   <NavigationMenuLink active={path === item.href} className={navigationMenuTriggerStyle()}>
                     {item.title}

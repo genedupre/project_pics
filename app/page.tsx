@@ -1,38 +1,17 @@
 import { Layout } from "@/components/layout"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { siteConfig } from "@/config/site"
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-
+import { Separator } from "@/components/ui/separator"
+import type { Metadata } from 'next';
+import { ScanForm } from "@/components/client/scan"
+import { Skeleton } from "@/components/ui/skeleton"
 // This is the default metadata for all pages. 
 export const metadata: Metadata = {
 	title: `${siteConfig.name}`,
-  desctiption: `${siteConfig.description}`,
+  description: `${siteConfig.description}`,
 };
 
 export default function IndexPage() {
+
   return (
     <Layout>
       <section className="container grid items-center gap-6 pt-6 pb-8 md:py-10">
@@ -46,46 +25,44 @@ export default function IndexPage() {
           </p>
         </div>
         <div className="w-full">
-          <div className="flex w-full max-w-4xl items-center space-x-2">
-            <Input type="url" placeholder="Enter a URL or an IP-address" />
-            <Select>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select a tool" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Websites</SelectLabel>
-                  <SelectItem value="webscan">Web Scanner</SelectItem>
-                  <SelectItem value="certinfo">Certificate Information</SelectItem>
-                </SelectGroup>
-                <SelectSeparator />
-                <SelectGroup>
-                  <SelectLabel>Servers</SelectLabel>
-                  <SelectItem value="portscan">Port Scanner</SelectItem>
-                  <SelectItem value="full_portscan">Full Port scan</SelectItem>
-                  <SelectItem value="custom_portscan" disabled>
-                    Custom Port Scan
-                  </SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button variant="default">Scan</Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure that you want to scan?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    We only reccomend this for educational purposes. If you scan a website or server that you do not own, you may be violating the law.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction type="submit">Start scanning</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+          <ScanForm />
+        </div>
+        <Separator />
+        <div className="w-full">
+          <h2 className="text-2xl font-bold leading-tight tracking-tighter sm:text-1xl md:text-2xl lg:text-3xl">
+            Newest CVEs
+          </h2>
+          <div className="not-prose relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800/25 mt-5"><div style={{backgroundPosition: '10px 10px'}} className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,#fff,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25 dark:[mask-image:linear-gradient(0deg,rgba(255,255,255,0.1),rgba(255,255,255,0.5))]"></div><div className="relative rounded-xl overflow-auto">
+            <div className="shadow-sm overflow-hidden my-4">
+              <table className="border-collapse table-auto w-full text-sm">
+                <thead>
+                  <tr>
+                    <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left w-1/6">ID</th>
+                    <th className="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left w-4/6">Description</th>
+                    <th className="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left w-1/6">Severity</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white dark:bg-slate-800" key="newest-cve">
+                {/* { TODO: Implement newest cves} */}
+                {[...Array(5).keys()].map((i) => (
+                      <tr key={i}>
+                        <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                          <Skeleton className="h-5 w-3/5" />
+                        </td>
+                        <td className="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+                          <Skeleton className="h-5 w-full" />
+                        </td>
+                        <td className="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
+                          <Skeleton className="h-5 w-3/5" />
+                        </td>
+                      </tr>
+                ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mb-3 text-center text-xs font-semibold text-slate-900 dark:text-slate-400">Data provided by cve-search</p>
+          </div>
+          <div className="absolute inset-0 pointer-events-none border border-black/5 rounded-xl dark:border-white/5"></div>
           </div>
         </div>
       </section>

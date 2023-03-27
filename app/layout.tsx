@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes"
 import { useEffect, useState } from "react";
 import { siteConfig } from "@/config/site"
 import type { Metadata } from 'next';
+import "nextjs-components/src/styles/globals.css";
 import "@/styles/globals.css"
 
 // If loading a variable font, you don't need to specify the font weight

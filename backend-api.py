@@ -8,9 +8,7 @@ import nmap
 import whois
 app = Flask(__name__)
 
-
-
-@app.route('/web-scanner')
+@app.route('/webscan')
 def web_scanner():
     url = request.args.get('url')
     r = requests.get(url)
@@ -19,8 +17,8 @@ def web_scanner():
 @app.route('/web-whois')
 def web_whois():
     url = request.args.get('url')
-    w = dict(whois.whois(url))
-    return json.dumps(w, indent=4, sort_keys=True, default=str)
+    w = whois.whois(url)
+    return json.dumps(dict(w), indent=4, sort_keys=True, default=str)
 
 @app.route('/port-scanner')
 def port_scanner():

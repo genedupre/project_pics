@@ -2,8 +2,6 @@
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from "next-themes"
 import { useEffect, useState } from "react";
-import { siteConfig } from "@/config/site"
-import type { Metadata } from 'next';
 import "nextjs-components/src/styles/globals.css";
 import "@/styles/globals.css"
 
@@ -12,14 +10,6 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
 })
-
-export const metadata: Metadata = {
-  title: {
-    default: `${siteConfig.name}`,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-}
 
 export default function RootLayout({
   children,

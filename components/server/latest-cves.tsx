@@ -52,7 +52,10 @@ export async function LatestCVEs() {
                                     key="newest-cve"
                                 >
                                     {data.length === 0 && (
-                                        <LatestCVEsSkeleton />
+                                        <>
+                                            {/* @ts-expect-error Server Component */}
+                                            <LatestCVEsSkeleton />
+                                        </>
                                     )}
 
                                     {data.map((i: CVEs) => (

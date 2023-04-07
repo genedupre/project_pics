@@ -12,6 +12,7 @@ const nextConfig = {
   },
   transpilePackages: ["nextjs-components"],
   swcMinify: true,
+  styledComponents: true
 }
 
 export default nextConfig

@@ -1,12 +1,14 @@
 import {
+    ExternalLink,
     Laptop,
     Loader2,
     LucideProps,
     Moon,
+    Scan,
+    Settings,
     SunMedium,
     Trash,
     Twitter,
-    ExternalLink,
     type Icon as LucideIcon,
 } from "lucide-react"
 
@@ -20,6 +22,8 @@ export const Icons = {
     trash: Trash,
     spinner: Loader2,
     link: ExternalLink,
+    settings: Settings,
+    scan: Scan,
     logo: (props: LucideProps) => (
         <svg
             xmlns="http://www.w3.org/2000/svg"

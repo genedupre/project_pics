@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import { Info } from "lucide-react"
 
+import { Icons } from "@/components/icons"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -16,8 +17,6 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {
     Select,
     SelectContent,
@@ -36,6 +35,7 @@ interface LoadingState {
 }
 
 export function ScanForm() {
+    const [showScanAlert, setShowScanAlert] = React.useState<boolean>(false)
     const [server, setServer] = useState("")
     const [tool, setTool] = useState("webscan")
     const [result, setResult] = useState<any>()
@@ -79,63 +79,83 @@ export function ScanForm() {
                             setServer(e.target.value)
                             setResult(null)
                         }}
+                        required
                     />
-                    <RadioGroup
+                    <Select
                         name="tool"
-                        onChange={(e) => {
-                            setTool((e.target as HTMLInputElement).value)
-                            setResult(null)
-                        }}
-                        defaultValue={tool || "webscan"}
-                        className="w-80"
+                        key="tool"
+                        onValueChange={setTool}
+                        required
                     >
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="webscan" id="r1" />
-                            <Label htmlFor="r1">Web Scan</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="portscan" id="r2" disabled />
-                            <Label htmlFor="r2">Port Scan</Label>
-                        </div>
-                    </RadioGroup>
-                    {/* <Select name="tool" key="tool">
-								<SelectTrigger className="w-80">
-										<SelectValue placeholder="Select a tool" />
-								</SelectTrigger>
-								<SelectContent>
-										<SelectGroup>
-										<SelectLabel>Websites</SelectLabel>
-										<SelectItem value="webscan">Web Scanner</SelectItem>
-										<SelectItem value="certinfo" disabled>Certificate Information</SelectItem>
-										<SelectItem value="whois" disabled>Domain Lookup</SelectItem>
-										</SelectGroup>
-										<SelectSeparator />
-										<SelectGroup>
-										<SelectLabel>Servers</SelectLabel>
-										<SelectItem value="portscan" disabled>Port Scanner</SelectItem>
-										<SelectItem value="full_portscan" disabled>Full Port scan</SelectItem>
-										<SelectItem value="custom_portscan" disabled>Custom Port Scan</SelectItem>
-										</SelectGroup>
-								</SelectContent>
-						</Select> */}
-                    <Button type="submit">Scan</Button>
-                    {/* <AlertDialog>
-						<AlertDialogTrigger asChild>
-								<Button variant="default">Scan</Button>
-						</AlertDialogTrigger>
-						<AlertDialogContent>
-								<AlertDialogHeader>
-								<AlertDialogTitle>Are you absolutely sure that you want to scan?</AlertDialogTitle>
-								<AlertDialogDescription>
-										We only reccomend this for educational purposes. If you scan a website or server that you do not own, you may be violating the law.
-								</AlertDialogDescription>
-								</AlertDialogHeader>
-								<AlertDialogFooter>
-								<AlertDialogCancel>Cancel</AlertDialogCancel>
-								<AlertDialogAction type="submit">Start scanning</AlertDialogAction>
-								</AlertDialogFooter>
-						</AlertDialogContent>
-						</AlertDialog> */}
+                        <SelectTrigger className="w-80">
+                            <SelectValue placeholder="Select a tool" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>Websites</SelectLabel>
+                                <SelectItem value="webscan">
+                                    Web Scanner
+                                </SelectItem>
+                                <SelectItem value="certinfo" disabled>
+                                    Certificate Information
+                                </SelectItem>
+                                <SelectItem value="web-whois">
+                                    Domain Lookup
+                                </SelectItem>
+                            </SelectGroup>
+                            <SelectSeparator />
+                            <SelectGroup>
+                                <SelectLabel>Servers</SelectLabel>
+                                <SelectItem value="portscan" disabled>
+                                    Port Scanner
+                                </SelectItem>
+                                <SelectItem value="full_portscan" disabled>
+                                    Full Port scan
+                                </SelectItem>
+                                <SelectItem value="custom_portscan" disabled>
+                                    Custom Port Scan
+                                </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    {/* <Button type="submit">Scan</Button> */}
+                    <AlertDialog
+                        open={showScanAlert}
+                        onOpenChange={setShowScanAlert}
+                    >
+                        <AlertDialogTrigger asChild>
+                            <Button variant="default">Scan</Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                    Are you absolutely sure that you want to
+                                    scan?
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    We only recommend this using this tool for
+                                    educational purposes. If you scan a website
+                                    or server that you do not own, you may be
+                                    violating the law.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                    onClick={async (event) => {
+                                        handleSubmit(event)
+                                        setShowScanAlert(false)
+                                    }}
+                                    className="bg-red-600 focus:ring-red-600"
+                                >
+                                    {loading ? (
+                                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                                    ) : null}
+                                    <span>Scan</span>
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
                 </form>
             </div>
 

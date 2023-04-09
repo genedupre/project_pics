@@ -59,7 +59,7 @@ export async function LatestCVEs() {
                                     )}
 
                                     {data.map((i: CVEs) => (
-                                        <tr key={i}>
+                                        <tr key={i.id}>
                                             <td className="border-b border-slate-100 p-4 pl-8 text-slate-500 dark:border-slate-700 dark:text-slate-400">
                                                 {i.id}
                                             </td>

@@ -21,7 +21,7 @@ export default async function handler(req: SubscribeRequest, res: NextApiRespons
   }
   
   // Check if tool is a valid tool
-  if (!["webscan"].includes(tool)) {
+  if (!["webscan", "web-whois"].includes(tool)) {
     return res.status(400).json({ error: "Invalid tool" });
   }
 

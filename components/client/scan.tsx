@@ -38,6 +38,7 @@ export function ScanForm() {
     const [showScanAlert, setShowScanAlert] = React.useState<boolean>(false)
     const [server, setServer] = useState("")
     const [tool, setTool] = useState("webscan")
+    const [protocol, setProtocol] = useState("none")
     const [result, setResult] = useState<any>()
     const [loading, setLoading] = useState<LoadingState["loading"]>(false)
 
@@ -48,6 +49,7 @@ export function ScanForm() {
         setResult(null)
         setLoading(true)
         const formData = new URLSearchParams()
+        formData.append("protocol", protocol)
         formData.append("server", server)
         formData.append("tool", tool)
         setTool(tool)
@@ -70,6 +72,21 @@ export function ScanForm() {
                     className="flex w-full items-center space-x-2"
                     onSubmit={handleSubmit}
                 >
+                    <Select
+                        name="protocol"
+                        key="protocol"
+                        onValueChange={setProtocol}
+                        required
+                    >
+                        <SelectTrigger className="w-40">
+                            <SelectValue placeholder="Protocol" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="https">https://</SelectItem>
+                            <SelectItem value="http">http://</SelectItem>
+                            <SelectItem value="none">Not applicable</SelectItem>
+                        </SelectContent>
+                    </Select>
                     <Input
                         type="text"
                         name="server"
@@ -142,7 +159,7 @@ export function ScanForm() {
                             <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                                 <AlertDialogAction
-                                    onClick={async (event) => {
+                                    onClick={async (event: any) => {
                                         handleSubmit(event)
                                         setShowScanAlert(false)
                                     }}

@@ -4,6 +4,7 @@ import {
     Loader2,
     LucideProps,
     Moon,
+    RefreshCcw,
     Scan,
     Settings,
     SunMedium,
@@ -24,6 +25,7 @@ export const Icons = {
     link: ExternalLink,
     settings: Settings,
     scan: Scan,
+    refresh: RefreshCcw,
     logo: (props: LucideProps) => (
         <svg
             xmlns="http://www.w3.org/2000/svg"

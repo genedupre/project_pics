@@ -22,7 +22,7 @@ const domains = Array.from({ length: 50 }).map(
     (_, i, a) => `example${a.length - i}.com`
 )
 
-const randomKey = Math.random().toString(36)
+let randomKey = Math.random().toString(36)
 
 export function DomainOwnership() {
     return (
@@ -53,8 +53,19 @@ export function DomainOwnership() {
                     Start by creating a file named <b>pics-project.txt</b> in
                     the root of your domain and add the following content:
                 </p>
-                <pre className="mt-4 mb-4 rounded-md bg-slate-100 p-4 dark:bg-slate-700">
-                    <code>{`key="${randomKey}"`}</code>
+                <pre className="my-4 rounded-md bg-slate-100 p-4 dark:bg-slate-700">
+                    <code id="domainKey">{`key="${randomKey}"`}</code>{" "}
+                    <Icons.refresh
+                        className="float-right h-5 w-5 cursor-pointer pt-1"
+                        onClick={() => {
+                            // Generate a new random key
+                            randomKey = Math.random().toString(36)
+                            // Update the code element
+                            document.querySelector(
+                                "#domainKey"
+                            )!.innerHTML = `key="${randomKey}"`
+                        }}
+                    />
                 </pre>
                 <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                     Once you have created the file, please enter your domain
@@ -75,9 +86,9 @@ export function DomainOwnership() {
                 <SheetFooter>
                     <Button type="submit">Verify domain</Button>
                 </SheetFooter>
-                <Separator className="mt-4 mb-4" />
+                <Separator className="my-4" />
                 <h4 className="text-sm font-semibold">Verified domains</h4>
-                <ScrollArea className="mt-4 h-72 rounded-md border border-slate-100 dark:border-slate-700">
+                <ScrollArea className="my-4 h-72 rounded-md border border-slate-100 dark:border-slate-700">
                     <div className="p-4">
                         {domains.map((domain) => (
                             <React.Fragment>
@@ -89,10 +100,12 @@ export function DomainOwnership() {
                         ))}
                     </div>
                 </ScrollArea>
-                <Separator className="mt-4 mb-4" />
+                <Separator className="my-4" />
                 <p className="text-sm text-slate-500 dark:text-slate-400">
                     Please note that we will store a cookie in your browser to
-                    verify your domain ownership.
+                    verify your domain ownership. You can, at any time, delete
+                    the cookies in your browser to remove the domain ownership
+                    verification.
                 </p>
             </SheetContent>
         </Sheet>

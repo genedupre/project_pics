@@ -4,6 +4,7 @@ interface SubscribeRequest extends NextApiRequest {
   body: {
     tool: string;
     server: string;
+    protocol: string;
   };
 }
 export default async function handler(req: SubscribeRequest, res: NextApiResponse) {
@@ -12,6 +13,7 @@ export default async function handler(req: SubscribeRequest, res: NextApiRespons
     return;
   }
   
+  const protocol = req.body.protocol;
   const server = req.body.server;
   const tool = req.body.tool;
 

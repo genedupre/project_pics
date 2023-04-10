@@ -67,112 +67,138 @@ export function ScanForm() {
 
     return (
         <>
-            <div className="container mx-auto">
-                <form
-                    className="flex w-full items-center space-x-2"
-                    onSubmit={handleSubmit}
-                >
-                    <Select
-                        name="protocol"
-                        key="protocol"
-                        onValueChange={setProtocol}
-                        required
-                    >
-                        <SelectTrigger className="w-40">
-                            <SelectValue placeholder="Protocol" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="https">https://</SelectItem>
-                            <SelectItem value="http">http://</SelectItem>
-                            <SelectItem value="none">Not applicable</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <Input
-                        type="text"
-                        name="server"
-                        placeholder="Enter a URL or an IP-address"
-                        value={server}
-                        onChange={(e) => {
-                            setServer(e.target.value)
-                            setResult(null)
-                        }}
-                        required
-                    />
-                    <Select
-                        name="tool"
-                        key="tool"
-                        onValueChange={setTool}
-                        required
-                    >
-                        <SelectTrigger className="w-80">
-                            <SelectValue placeholder="Select a tool" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>Websites</SelectLabel>
-                                <SelectItem value="webscan">
-                                    Web Scanner
-                                </SelectItem>
-                                <SelectItem value="certinfo" disabled>
-                                    Certificate Information
-                                </SelectItem>
-                                <SelectItem value="web-whois">
-                                    Domain Lookup
-                                </SelectItem>
-                            </SelectGroup>
-                            <SelectSeparator />
-                            <SelectGroup>
-                                <SelectLabel>Servers</SelectLabel>
-                                <SelectItem value="portscan" disabled>
-                                    Port Scanner
-                                </SelectItem>
-                                <SelectItem value="full_portscan" disabled>
-                                    Full Port scan
-                                </SelectItem>
-                                <SelectItem value="custom_portscan" disabled>
-                                    Custom Port Scan
-                                </SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                    {/* <Button type="submit">Scan</Button> */}
-                    <AlertDialog
-                        open={showScanAlert}
-                        onOpenChange={setShowScanAlert}
-                    >
-                        <AlertDialogTrigger asChild>
-                            <Button variant="default">Scan</Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                    Are you absolutely sure that you want to
-                                    scan?
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    We only recommend this using this tool for
-                                    educational purposes. If you scan a website
-                                    or server that you do not own, you may be
-                                    violating the law.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                    onClick={async (event: any) => {
-                                        handleSubmit(event)
-                                        setShowScanAlert(false)
-                                    }}
-                                    className="bg-red-600 focus:ring-red-600"
-                                >
-                                    {loading ? (
-                                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                                    ) : null}
-                                    <span>Scan</span>
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
+            <div className="container">
+                <form onSubmit={handleSubmit} className="w-full">
+                    <div className="-mx-3 mb-2 flex flex-wrap">
+                        <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
+                            <Select
+                                name="protocol"
+                                key="protocol"
+                                onValueChange={setProtocol}
+                                required
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Protocol" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="https">
+                                        https://
+                                    </SelectItem>
+                                    <SelectItem value="http">
+                                        http://
+                                    </SelectItem>
+                                    <SelectItem value="none">
+                                        Not applicable
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="mb-6 w-full px-3 md:mb-0 md:w-3/6">
+                            <Input
+                                type="text"
+                                name="server"
+                                placeholder="Enter a URL or an IP-address"
+                                value={server}
+                                onChange={(e) => {
+                                    setServer(e.target.value)
+                                    setResult(null)
+                                }}
+                                required
+                            />
+                        </div>
+                        <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
+                            <Select
+                                name="tool"
+                                key="tool"
+                                onValueChange={setTool}
+                                required
+                            >
+                                <SelectTrigger className="">
+                                    <SelectValue placeholder="Select a tool" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Websites</SelectLabel>
+                                        <SelectItem value="webscan">
+                                            Web Scanner
+                                        </SelectItem>
+                                        <SelectItem value="certinfo" disabled>
+                                            Certificate Information
+                                        </SelectItem>
+                                        <SelectItem value="web-whois">
+                                            Domain Lookup
+                                        </SelectItem>
+                                    </SelectGroup>
+                                    <SelectSeparator />
+                                    <SelectGroup>
+                                        <SelectLabel>Servers</SelectLabel>
+                                        <SelectItem value="portscan" disabled>
+                                            Port Scanner
+                                        </SelectItem>
+                                        <SelectItem
+                                            value="full_portscan"
+                                            disabled
+                                        >
+                                            Full Port scan
+                                        </SelectItem>
+                                        <SelectItem
+                                            value="custom_portscan"
+                                            disabled
+                                        >
+                                            Custom Port Scan
+                                        </SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="mb-6 w-full px-6 md:mb-0 md:w-1/6">
+                            <AlertDialog
+                                open={showScanAlert}
+                                onOpenChange={setShowScanAlert}
+                            >
+                                <AlertDialogTrigger asChild>
+                                    <Button
+                                        variant="default"
+                                        className="w-full"
+                                    >
+                                        Scan
+                                    </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>
+                                            Are you absolutely sure that you
+                                            want to scan?
+                                        </AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            We only recommend this using this
+                                            tool for educational purposes. If
+                                            you scan a website or server that
+                                            you do not own, you may be violating
+                                            the law.
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel>
+                                            Cancel
+                                        </AlertDialogCancel>
+                                        <AlertDialogAction
+                                            onClick={async (event: any) => {
+                                                handleSubmit(event)
+                                                setShowScanAlert(false)
+                                            }}
+                                            className="bg-red-600 focus:ring-red-600"
+                                        >
+                                            {loading ? (
+                                                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                                            ) : null}
+                                            <span>Scan</span>
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
+                        </div>
+                    </div>
                 </form>
             </div>
 

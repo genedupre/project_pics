@@ -39,7 +39,11 @@ export function DomainOwnership() {
                     <span className="sr-only">Settings</span>
                 </div>
             </SheetTrigger>
-            <SheetContent position="right" size="sm">
+            <SheetContent
+                position="right"
+                size="content"
+                className="sm:w-full md:w-96"
+            >
                 <SheetHeader>
                     <SheetTitle>Domain ownership verification</SheetTitle>
                     <SheetDescription>

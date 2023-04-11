@@ -40,6 +40,9 @@ export async function LatestCVEs() {
                                         CWE
                                     </th>
                                     <th className="w-1/8 hidden border-b p-4 pr-8 pt-0 pb-3 text-left font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:table-cell"></th>
+                                    <th className="block border-b p-4 pr-8 font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:hidden">
+                                        CVE Details
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody
@@ -63,7 +66,7 @@ export async function LatestCVEs() {
                                                 {i.summary}
                                             </p>
 
-                                            <div className="block lg:hidden">
+                                            <div className="block md:hidden">
                                                 <div>
                                                     <b>ID:</b> {i.id}{" "}
                                                 </div>

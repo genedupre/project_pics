@@ -95,10 +95,8 @@ export function DomainOwnership() {
                 <ScrollArea className="my-4 h-72 rounded-md border border-slate-100 dark:border-slate-700">
                     <div className="p-4">
                         {domains.map((domain) => (
-                            <React.Fragment>
-                                <div className="text-sm" key={domain}>
-                                    {domain}
-                                </div>
+                            <React.Fragment key={domain}>
+                                <div className="text-sm">{domain}</div>
                                 <Separator className="my-2" />
                             </React.Fragment>
                         ))}

@@ -1,6 +1,6 @@
 {
-  "name": "next-template",
-  "version": "0.0.1",
+  "name": "pics-webscanner",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "api": "python3 backend-api.py",

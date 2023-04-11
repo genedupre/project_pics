@@ -102,7 +102,7 @@ export async function LatestCVEs() {
                             </tbody>
                         </table>
                     </div>
-                    <p className="mb-3 text-center text-xs font-semibold text-slate-900 dark:text-slate-400">
+                    <p className="mb-4 pb-4 text-center text-xs font-semibold text-slate-900 dark:text-slate-400">
                         Data provided by cve-search
                     </p>
                 </div>

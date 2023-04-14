@@ -1,12 +1,20 @@
 import type { Metadata } from "next"
+import dynamic from "next/dynamic"
 
 import { siteConfig } from "@/config/site"
 import { MagicText } from "@/components/client/magic-text"
 import { ScanForm } from "@/components/client/scan"
 import { Layout } from "@/components/layout"
-import { LatestCVEs } from "@/components/server/latest-cves"
+import { LatestCVEsSkeleton } from "@/components/server/latest-cves-skeleton"
 import { Separator } from "@/components/ui/separator"
 
+const LatestCVEs = dynamic(
+    () =>
+        import("@/components/server/latest-cves").then((mod) => mod.LatestCVEs),
+    {
+        loading: () => <LatestCVEsSkeleton />,
+    }
+)
 // This is the default metadata for all pages.
 export const metadata: Metadata = {
     title: `${siteConfig.name}`,

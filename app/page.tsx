@@ -9,12 +9,14 @@ import { LatestCVEsSkeleton } from "@/components/server/latest-cves-skeleton"
 import { Separator } from "@/components/ui/separator"
 
 const LatestCVEs = dynamic(
+    /* @ts-expect-error Dynamic Component */
     () =>
         import("@/components/server/latest-cves").then((mod) => mod.LatestCVEs),
     {
         loading: () => <LatestCVEsSkeleton />,
     }
 )
+
 // This is the default metadata for all pages.
 export const metadata: Metadata = {
     title: `${siteConfig.name}`,
@@ -39,7 +41,6 @@ export default async function IndexPage() {
                     <ScanForm />
                 </div>
                 <Separator />
-                {/* @ts-expect-error Server Component */}
                 <LatestCVEs />
             </section>
         </Layout>

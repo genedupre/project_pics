@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton"
 
-export async function LatestCVEsSkeleton() {
+export function LatestCVEsSkeleton() {
     return (
         <>
             <div className="w-full">

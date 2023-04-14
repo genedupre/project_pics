@@ -22,7 +22,7 @@ export function SiteHeader() {
                     rel="noreferrer"
                 >
                     <div
-                        className="flex items-center bg-indigo-800 p-2 leading-none text-indigo-100 lg:inline-flex lg:rounded-full"
+                        className="flex items-center p-2 leading-none text-indigo-100 sm:bg-indigo-800 md:inline-flex md:rounded-full"
                         role="alert"
                     >
                         <span className="mr-3 flex rounded-full bg-indigo-500 px-2 py-1 text-xs font-bold uppercase">

@@ -1,11 +1,10 @@
 import Link from "next/link"
 
 import { Icons } from "@/components/icons"
-import { LatestCVEsSkeleton } from "@/components/server/latest-cves-skeleton"
 
 async function getCVEData() {
     const res = await fetch("https://cve.circl.lu/api/last", {
-        next: { revalidate: 60 },
+        cache: "no-store",
     })
     const data = await res.json()
     return data
@@ -49,13 +48,6 @@ export async function LatestCVEs() {
                                 className="bg-white dark:bg-slate-800"
                                 key="newest-cve"
                             >
-                                {data.length === 0 && (
-                                    <>
-                                        {/* @ts-expect-error Server Component */}
-                                        <LatestCVEsSkeleton />
-                                    </>
-                                )}
-
                                 {data.map((i: CVEs) => (
                                     <tr key={i.id}>
                                         <td className="hidden border-b border-slate-100 p-4 pl-8 text-slate-500 dark:border-slate-700 dark:text-slate-400 md:table-cell">

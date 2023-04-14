@@ -4,7 +4,7 @@ import { Icons } from "@/components/icons"
 
 async function getCVEData() {
     const res = await fetch("https://cve.circl.lu/api/last", {
-        cache: "no-store",
+        next: { revalidate: 300 },
     })
     const data = await res.json()
     return data

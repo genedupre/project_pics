@@ -9,7 +9,10 @@ import whois
 import ssl
 import socket
 from urllib.parse import urlparse
+import dns.resolver
+
 app = Flask(__name__)
+
 
 @app.route('/webscan')
 def web_scanner():
@@ -17,11 +20,13 @@ def web_scanner():
     r = requests.get(url)
     return json.dumps(dict(r.headers), indent=4, sort_keys=True)
 
+
 @app.route('/web-whois')
 def web_whois():
     url = request.args.get('url')
     w = whois.whois(url)
     return json.dumps(dict(w), indent=4, sort_keys=True, default=str)
+
 
 @app.route('/port-scanner')
 def port_scanner():
@@ -39,4 +44,25 @@ def cert_info():
         with ctx.wrap_socket(sock, server_hostname=url.netloc) as ssock:
             cert = ssock.getpeercert()
             return json.dumps(cert)
+
+
+@app.route('/dns-records')
+def dns_records():
+    url = urlparse(request.args.get('url'))
+
+    dns_record_types = ['A', 'AAAA', 'ANY', 'CAA',
+                        'CNAME', 'MX', 'NS', 'SOA', 'SRV', 'TXT']
+    dns_records = {}
+
+    # Loop through all the DNS record types
+    for dns_record_type in dns_record_types:
+        try:
+            res = dns.resolver.resolve(url.path, dns_record_type)
+            dns_records[dns_record_type] = res.response.answer
+        except:
+            pass
+
+    return json.dumps(dict(dns_records), indent=4, sort_keys=True, default=str)
+
+
 app.run()

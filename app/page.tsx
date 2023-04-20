@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 export default async function IndexPage() {
     return (
         <Layout>
-            <section className="container grid items-center gap-6 pt-6 pb-8 md:py-10">
+            <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
                 <div className="flex flex-col items-start gap-2">
                     <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
                         <MagicText text="Scan and analyze" /> your network{" "}

@@ -2,18 +2,24 @@ import Link from "next/link"
 
 import { Icons } from "@/components/icons"
 
-async function getCVEData() {
-    const res = await fetch("https://cve.circl.lu/api/last", {
-        next: { revalidate: 300 },
-    })
-    const data = await res.json()
-    return data
+interface CVEs {
+    ID: string
+    description: string
 }
 
-type CVEs = {
-    id: string
-    summary: string
-    cwe: string
+async function getCVEData(): Promise<CVEs[]> {
+    const res = await fetch(
+        "https://services.nvd.nist.gov/rest/json/cves/1.0",
+        {
+            next: { revalidate: 300 },
+        }
+    )
+    const data = await res.json()
+
+    return data.result.CVE_Items.map((item: any) => ({
+        ID: item.cve.CVE_data_meta.ID,
+        description: item.cve.description.description_data[0].value,
+    }))
 }
 
 export async function LatestCVEs() {
@@ -22,7 +28,7 @@ export async function LatestCVEs() {
         <>
             <div className="w-full">
                 <h2 className="sm:text-1xl text-2xl font-bold leading-tight tracking-tighter md:text-2xl lg:text-3xl">
-                    Newest CVEs
+                    Latest CVEs
                 </h2>
                 <div className="mt-5  rounded-xl bg-slate-50 pt-0.5 dark:bg-slate-800/25">
                     <div className=" overflow-none my-4 shadow-sm">
@@ -38,7 +44,6 @@ export async function LatestCVEs() {
                                     <th className="w-1/8 hidden border-b p-4 pb-3 pr-8 pt-0 text-left font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:table-cell">
                                         CWE
                                     </th>
-                                    <th className="w-1/8 hidden border-b p-4 pb-3 pr-8 pt-0 text-left font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:table-cell"></th>
                                     <th className="block border-b p-4 pr-8 font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:hidden">
                                         CVE Details
                                     </th>
@@ -48,29 +53,27 @@ export async function LatestCVEs() {
                                 className="bg-white dark:bg-slate-800"
                                 key="newest-cve"
                             >
-                                {data.map((i: CVEs) => (
-                                    <tr key={i.id}>
+                                {data.map((i: SimpleCVE) => (
+                                    <tr key={i.ID}>
                                         <td className="hidden border-b border-slate-100 p-4 pl-8 text-slate-500 dark:border-slate-700 dark:text-slate-400 md:table-cell">
-                                            {i.id}
+                                            {i.ID}
                                         </td>
                                         <td className="text-ellipsis border-b border-slate-100 p-4 text-slate-500 dark:border-slate-700 dark:text-slate-400">
                                             <p className="hidden md:block">
-                                                {i.summary}
+                                                {i.description}
                                             </p>
 
                                             <div className="block md:hidden">
                                                 <div>
-                                                    <b>ID:</b> {i.id}{" "}
+                                                    <b>ID:</b> {i.ID}{" "}
                                                 </div>
                                                 <div>
-                                                    <b>Summary:</b> {i.summary}
-                                                </div>
-                                                <div>
-                                                    <b>CWE:</b> {i.cwe}
+                                                    <b>Summary:</b>{" "}
+                                                    {i.description}
                                                 </div>
                                                 <div>
                                                     <Link
-                                                        href={`https://nvd.nist.gov/vuln/detail/${i.id}`}
+                                                        href={`https://nvd.nist.gov/vuln/detail/${i.ID}`}
                                                         target="_blank"
                                                     >
                                                         <Icons.link className="h-5 w-5" />
@@ -79,11 +82,8 @@ export async function LatestCVEs() {
                                             </div>
                                         </td>
                                         <td className="hidden border-b border-slate-100 p-4 pr-8 text-slate-500 dark:border-slate-700 dark:text-slate-400 md:table-cell">
-                                            {i.cwe}
-                                        </td>
-                                        <td className="hidden border-b border-slate-100 p-4 pr-8 text-slate-500 dark:border-slate-700 dark:text-slate-400 md:table-cell">
                                             <Link
-                                                href={`https://nvd.nist.gov/vuln/detail/${i.id}`}
+                                                href={`https://nvd.nist.gov/vuln/detail/${i.ID}`}
                                                 target="_blank"
                                             >
                                                 <Icons.link className="h-5 w-5" />
@@ -95,7 +95,11 @@ export async function LatestCVEs() {
                         </table>
                     </div>
                     <p className="mb-4 pb-4 text-center text-xs font-semibold text-slate-900 dark:text-slate-400">
-                        Data provided by cve-search
+                        Data provided by{" "}
+                        <Link href="https://nvd.nist.gov/" target="_blank">
+                            National Institute of Standards and Technology
+                            (NIST)
+                        </Link>
                     </p>
                 </div>
                 <div className="pointer-events-none absolute inset-0 rounded-xl border border-black/5 dark:border-white/5"></div>

@@ -90,7 +90,7 @@ const CertificateData: React.FC<CertificateDataProps> = ({ data }) => {
                     ))}
                 </tbody>
             </table>
-            <h2 className="mb-4 mt-4 pl-4 text-2xl font-extrabold leading-tight tracking-tighter">
+            <h2 className="my-4 pl-4 text-2xl font-extrabold leading-tight tracking-tighter">
                 Issuer:
             </h2>
             <table className="mb-4 w-full table-auto border-collapse pl-4 text-sm">
@@ -141,7 +141,7 @@ const CertificateData: React.FC<CertificateDataProps> = ({ data }) => {
                 </li>
             </ul>
 
-            <h2 className="mb-4 mt-4 pl-4 text-2xl font-extrabold leading-tight tracking-tighter">
+            <h2 className="my-4 pl-4 text-2xl font-extrabold leading-tight tracking-tighter">
                 Subject Alternative Names:
             </h2>
             <table className="mb-4 w-full table-auto border-collapse pl-4 text-sm">

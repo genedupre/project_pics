@@ -12,16 +12,16 @@ export function LatestCVEsSkeleton() {
                         <table className=" table-auto border-collapse text-sm">
                             <thead>
                                 <tr>
-                                    <th className="hidden w-1/6 border-b p-4 pl-8 pt-0 pb-3 text-left font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:table-cell">
+                                    <th className="hidden w-1/6 border-b p-4 pb-3 pl-8 pt-0 text-left font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:table-cell">
                                         ID
                                     </th>
-                                    <th className="hidden w-4/5 border-b p-4 pt-0 pb-3 text-left font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:table-cell">
+                                    <th className="hidden w-4/5 border-b p-4 pb-3 pt-0 text-left font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:table-cell">
                                         Summary
                                     </th>
-                                    <th className="w-1/8 hidden border-b p-4 pr-8 pt-0 pb-3 text-left font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:table-cell">
+                                    <th className="w-1/8 hidden border-b p-4 pb-3 pr-8 pt-0 text-left font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:table-cell">
                                         CWE
                                     </th>
-                                    <th className="w-1/8 hidden border-b p-4 pr-8 pt-0 pb-3 text-left font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:table-cell"></th>
+                                    <th className="w-1/8 hidden border-b p-4 pb-3 pr-8 pt-0 text-left font-medium text-slate-400 dark:border-slate-600 dark:text-slate-200 md:table-cell"></th>
                                 </tr>
                             </thead>
                             <tbody

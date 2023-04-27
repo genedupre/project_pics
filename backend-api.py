@@ -50,15 +50,31 @@ def cert_info():
 def dns_records():
     url = urlparse(request.args.get('url'))
 
-    dns_record_types = ['A', 'AAAA', 'ANY', 'CAA',
-                        'CNAME', 'MX', 'NS', 'SOA', 'SRV', 'TXT']
-    dns_records = {}
+    # https://en.wikipedia.org/wiki/List_of_DNS_record_types
+    dns_record_types = ["A", "AAAA", "AFSDB", "APL", "CAA", "CDNSKEY", "CDS", "CERT", "CNAME", "CSYNC", "DHCID", "DLV", "DNAME", "DNSKEY", "DS", "EUI48", "EUI64", "HINFO", "HIP", "HTTPS", "IPSECKEY", "KEY",
+                        "KX", "LOC", "MX", "NAPTR", "NS", "NSEC", "NSEC3", "NSEC3PARAM", "NULL", "OPT", "PTR", "RKEY", "RP", "RRSIG", "RT", "SOA", "SRV", "SSHFP", "SVCB", "TA", "TKEY", "TLSA", "TSIG", "TXT", "URI", "ZONEMD"]
 
+    dns_records = {}
     # Loop through all the DNS record types
     for dns_record_type in dns_record_types:
         try:
-            res = dns.resolver.resolve(url.path, dns_record_type)
-            dns_records[dns_record_type] = res.response.answer
+            res = dns.resolver.resolve(url.netloc, dns_record_type)
+            # This is quite ugly, but gets the job done
+            start_str = ';ANSWER\n'
+            end_str = ';AUTHORITY\n'
+
+            response = str(res.response)
+
+            # Find the start and end of the answer section
+            start_index = response.find(start_str)
+            end_index = response.find(end_str)
+
+            # Get the answer section
+            answer_section = response[start_index+len(start_str):end_index]
+            dns_records[dns_record_type] = answer_section.split('\n')
+            # Remove any empy values
+            dns_records[dns_record_type] = list(
+                filter(None, dns_records[dns_record_type]))
         except:
             pass
 

@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     }
 
     // Check if the tool is valid, if not, return an error
-    if (!["webscan", "web-whois", "cert-info"].includes(tool)) {
+    if (!["webscan", "web-whois", "cert-info", "dns-records"].includes(tool)) {
         return NextResponse.json({ error: "Invalid tool" })
     }
 

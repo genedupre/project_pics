@@ -53,7 +53,7 @@ export async function LatestCVEs() {
                                 className="bg-white dark:bg-slate-800"
                                 key="newest-cve"
                             >
-                                {data.map((i: SimpleCVE) => (
+                                {data.map((i: CVEs) => (
                                     <tr key={i.ID}>
                                         <td className="hidden border-b border-slate-100 p-4 pl-8 text-slate-500 dark:border-slate-700 dark:text-slate-400 md:table-cell">
                                             {i.ID}

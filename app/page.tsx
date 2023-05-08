@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import type { Metadata } from "next"
 import dynamic from "next/dynamic"
 
@@ -5,17 +6,9 @@ import { siteConfig } from "@/config/site"
 import { MagicText } from "@/components/client/magic-text"
 import { ScanForm } from "@/components/client/scan"
 import { Layout } from "@/components/layout"
+import { LatestCVEs } from "@/components/server/latest-cves"
 import { LatestCVEsSkeleton } from "@/components/server/latest-cves-skeleton"
 import { Separator } from "@/components/ui/separator"
-
-const LatestCVEs = dynamic(
-    /* @ts-expect-error Dynamic Component */
-    () =>
-        import("@/components/server/latest-cves").then((mod) => mod.LatestCVEs),
-    {
-        loading: () => <LatestCVEsSkeleton />,
-    }
-)
 
 // This is the default metadata for all pages.
 export const metadata: Metadata = {
@@ -41,7 +34,10 @@ export default async function IndexPage() {
                     <ScanForm />
                 </div>
                 <Separator />
-                <LatestCVEs />
+                <Suspense fallback={<LatestCVEsSkeleton />}>
+                    {/* @ts-expect-error Server Component */}
+                    <LatestCVEs />
+                </Suspense>
             </section>
         </Layout>
     )

@@ -99,7 +99,7 @@ export function ScanForm() {
                                 onValueChange={setProtocol}
                                 required
                             >
-                                <SelectTrigger>
+                                <SelectTrigger aria-label="Protocol">
                                     <SelectValue placeholder="Protocol" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -135,7 +135,7 @@ export function ScanForm() {
                                 onValueChange={handleToolChange}
                                 required
                             >
-                                <SelectTrigger className="">
+                                <SelectTrigger aria-label="Tool">
                                     <SelectValue placeholder="Select a tool" />
                                 </SelectTrigger>
                                 <SelectContent>

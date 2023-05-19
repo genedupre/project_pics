@@ -188,3 +188,22 @@ h1 > .magic > .magic-text {
     -webkit-text-fill-color: transparent;
     white-space: nowrap;
 }
+
+.terminal {
+    @apply min-h-[16rem] flex-1 rounded bg-black p-1 font-mono text-sm sm:p-2;
+    @apply flex w-full flex-col;
+
+    @apply h-full;
+
+    &::-webkit-scrollbar-track {
+        @apply w-2;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        @apply bg-slate-900;
+    }
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}

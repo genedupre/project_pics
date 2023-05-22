@@ -7,6 +7,7 @@ import { ScanSkeleton } from "@/components/client/scan-skeleton"
 import { Icons } from "@/components/icons"
 import CertScan from "@/components/scanning/CertScan"
 import DNSScan from "@/components/scanning/DNSScan"
+import PortScan from "@/components/scanning/PortScan"
 import WebScan from "@/components/scanning/WebScan"
 import WhoisScan from "@/components/scanning/WhoisScan"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
@@ -157,7 +158,7 @@ export function ScanForm() {
                                     <SelectSeparator />
                                     <SelectGroup>
                                         <SelectLabel>Servers</SelectLabel>
-                                        <SelectItem value="portscan" disabled>
+                                        <SelectItem value="portscan">
                                             Port Scanner
                                         </SelectItem>
                                         <SelectItem value="dns-records">
@@ -225,7 +226,7 @@ export function ScanForm() {
                         {tool === "cert-info" && <CertScan data={result} />}
                         {tool === "web-whois" && <WhoisScan data={result} />}
                         {tool === "dns-records" && <DNSScan data={result} />}
-                            ></div>
+                        {tool === "portscan" && <PortScan data={result} />}
                     </div>
                     {tool !== "portscan" && (
                         <>

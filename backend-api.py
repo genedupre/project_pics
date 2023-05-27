@@ -61,7 +61,7 @@ def handle_join_room(room):
     if session_id not in command_threads or not command_threads[session_id].is_alive():
         stop_event = threading.Event()
         command_threads[session_id] = (threading.Thread(target=run_system_command, args=(
-            f"ping -t {domain}", room, stop_event), daemon=True), stop_event)
+            f"nmap -p- -vv -d2 {domain}", room, stop_event), daemon=True), stop_event)
         command_threads[session_id][0].start()
 
 

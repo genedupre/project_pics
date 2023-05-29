@@ -50,6 +50,12 @@ def handle_connect():
 def handle_join_room(room):
     session_id = request.args.get('sessionId')
     domain = request.args.get('domain')
+
+    # Domain can only include alphanumeric characters and dots, prevent command injection
+    if not domain.isalnum() and '.' not in domain:
+        print(f"Client {session_id} tried to join invalid domain: {domain}")
+        return
+
     join_room(room)
     print(f"Client {session_id} joined room: {room}")
     # Send a message to the room
